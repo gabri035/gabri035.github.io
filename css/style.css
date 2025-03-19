@@ -1,0 +1,63 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 920px;
+    margin: 0 auto;  /* Centra orizzontalmente */
+
+}
+
+
+.div {
+    color:white;
+    background-image: url("../image/loro.jpg");
+    background-size: cover;
+    padding-top: 10px;
+} 
+
+#logo{
+    height: 40px;
+    width: auto;
+}
+
+h1 {
+    display: inline;
+    font-weight: bold;
+}
+
+.separator{
+border: 1px solid white;
+margin: 10px 0;
+
+}
+
+button {
+    padding: 1px 6px;
+}
+
+.search-result-message {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.email-row{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+
+}
+.email-subject{
+    font-weight: bold;
+    display: inline;
+
+}
