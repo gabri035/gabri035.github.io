@@ -3,56 +3,57 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MB Premier</title>
+    <title>Callz Pricing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
   </head>
 
     <body>
 
-
-        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        <div class="container p-3 my-3 border rounded shadow-lg">
+        <div class="container-fluid col-12" style="background-color: #f5e8d0;">
+            <img 
+            alt="ciao"
+            src="./image/Logo_trasp.png" 
+            class="logo rounded float-left"
+            style="width: 70px;"
+            />
+            <h1 class="display-1 center"  style="display: inline-block">Callz</h1>
+ 
+        
+        </div>
+
+
+
+
+        <div class="container p-2 my-2 border rounded shadow-lg">
             <div class="row g-3">
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-6">
                     <div class="p-3 border rounded text-bg-light">
-                        <h1>Davide conte suca</h1>
-                        <p>Investimenti, banking, <br> addirittura</p>
+                        <h1>Analisi Serie Storica</h1>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa cum nulla quibusdam necessitatibus totam corporis sequi ut sint illo sunt. Laborum commodi distinctio eius veniam aut iure dignissimos impedit deleniti.</p>
                         <img 
                             style="width: 200px"
-                            class="rounded float-end img-thumbnail"
+                            class="rounded img-thumbnail"
                             alt="Colosseo"
-                            src="./image/loro.jpg"
+                            src="./image/finanza1.png"
                         />
              
 
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-6">
                     <div class="p-3 border rounded text-bg-light">
-                        <h1>Zonno Gay</h1>
-                        <p>Investimenti, baning, addirittura</p>
-
-                        <iframe
-                            class="w-auto h-auto"
-                            src="https://www.youtube.com/watch?v=v-6JJ9hz2WA"
-                            title="Youyube video player"
-                            frameboard="0"
-                            allow="accelerometer;autoplay;clipboard-write;gyroscope"
-                            allowfullscreen
-                        ></iframe>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="container">
-                        <div class="row mb-3">   
-                            <div class="text-center p-3 border rounded text-bg-light shadow">
-                                <h1>Banking</h1>
-                            </div>
-                        </div>     
+                        <h1>Pricing Opzioni</h1>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nisi porro ratione provident quasi similique maiores fugit perspiciatis consequatur. Veniam fugit saepe earum soluta laborum modi atque quasi quos animi?</p>
+                        <img 
+                        style="width: 200px"
+                        class="rounded img-thumbnail"
+                        alt="Colosseo"
+                        src="./image/download.jpeg"
+                    />
+                        
                     </div>
                 </div>
 
@@ -61,6 +62,49 @@
             
         </div>
 
+        <div class="container my-4 p-3 border rounded shadow-sm">
+            <h5>Che tipo di opzione vuoi valutare?</h5>
+        
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check1">
+                <label class="form-check-label" for="check1">
+                    Opzione Call
+                </label>
+            </div>
+        
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="check2">
+                <label class="form-check-label" for="check2">
+                    Opzione Put
+                </label>
+            </div>
+        
+            <div id="immagine" class="mt-4">
+                <!-- Qui apparirà l'immagine -->
+            </div>
+        </div>
+        
+        <script>
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const immagine = document.getElementById('immagine');
+        
+            function aggiornaImmagine() {
+                if (check1.checked && !check2.checked) {
+                    immagine.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/4/41/PayoffOpzionePut.jpg" class="img-fluid rounded" alt="Immagine 1">';
+                } else if (!check1.checked && check2.checked) {
+                    immagine.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/4/41/PayoffOpzionePut.jpg" class="img-fluid rounded" alt="Immagine 2">';
+                } else if (check1.checked && check2.checked) {
+                    immagine.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/4/41/PayoffOpzionePut.jpg" class="img-fluid rounded" alt="Entrambe">';
+                } else {
+                    immagine.innerHTML = '';
+                }
+            }
+        
+            check1.addEventListener('change', aggiornaImmagine);
+            check2.addEventListener('change', aggiornaImmagine);
+        </script>
+        
         
 
 
