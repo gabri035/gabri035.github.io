@@ -62,7 +62,7 @@ def generate_payoff():
         commento = "L'opzione è Out of The Money (OTM), rischio più elevato."
 
     
-    return jsonify({'image_url': url_for('image', filename='payoff.png'), 'commento':commento})
+    return jsonify({'image_url': url_for('image', filename='payoff'), 'analisi':commento})
 
 if __name__ == '__main__':
     app.run(debug=True)
