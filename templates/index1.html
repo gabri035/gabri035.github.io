@@ -13,19 +13,53 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        <div class="container-fluid col-12" style="background-color: #f5e8d0;">
-            <img 
-            alt="ciao"
-            src="../image/Logo_trasp.png" 
-            class="logo rounded float-left"
-            style="width: 70px;"
-            />
-            <h1 class="display-1"  style="display: inline-block">Callz</h1>
- 
+        <nav class="navbar navbar-expand-lg  " style="background-color: #f5e8d0;" >
+            <div class="container-fluid">
+                <img 
+                alt="ciao"
+                src="../image/Logo_trasp.png" 
+                class="logo rounded centered"
+                style="width: 40px;"
+                />
+              <a class="navbar-brand" href="./index.html">Callz </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./index1.html">Chi siamo</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./index2.html">Analisi della serie storica</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href=""./index3.html"" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Opzioni
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="./pricing.html">Pricing and Greeks</a></li>
+                      <li><a class="dropdown-item" href="./strategie.html">Strategies</a></li>
+                      <li><a class="dropdown-item" href="./cointegrazione.html">Cointegration</a></li>
+                      
+                    </ul>
+
+                  </li>
+                </ul>
+              </div>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+        </nav>
+     
+     
+     
         
-        </div>
-
-
         <div class="container p-2 my-2 border rounded shadow-lg">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="p-3 border rounded text-bg-light">
