@@ -1,0 +1,50 @@
+{% extends "./index.html" %}
+{% block content %}
+<h3 class="mb-4">Calcolatore Payoff Opzioni</h3>
+
+<!-- Form Per il titolo sottostante/opzione-->
+<div class="card shadow-sm p-3">
+    <div class="mb-3">
+        <label class="form-label">Prezzo Attuale del sottostante</label>
+        <input type="number" step="any" id="current_price" class="form-control" placeholder="es. 100">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Strike Price (K)</label>
+        <input type="number" step="any" id="strike_price" class="form-control" placeholder="es. 105">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Prezzo dell'Opzione</label>
+        <input type="number" step="any" id="option_price" class="form-control" placeholder="es. 2.5">
+    </div>
+
+    <button id="calculateBtn" class="btn btn-success">Genera Grafico Payoff</button>
+    <hr>
+    <div id="imageContainer"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('calculateBtn').onclick = function(){
+    const formData = new FormData();
+    formData.append('S', document.getElementById('S').value);
+    formData.append('K', document.getElementById('K').value);
+    formData.append('X', document.getElementById('X').value);
+
+    fetch('/image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('image').innerHTML = `
+            <img src="${data.image_url}?${new Date().getTime()}" class="img-fluid rounded shadow-sm">
+            <p class="mt-3 alert alert-info">${data.commento}</p>
+        `;
+    })
+    .catch(error => alert('Errore nella generazione del payoff!'));
+};
+</script>
+{% endblock %}
