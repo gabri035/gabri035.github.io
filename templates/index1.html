@@ -1,13 +1,39 @@
 <!doctype html>
 <html lang="it">
-    <head>
+      <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Callz Pricing</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
         <link href="../css/style.css" rel="stylesheet"/>
 
-    </head>
+
+        <style>
+
+          .sticker {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          }
+          .sticker img {
+            max-width: 70%;
+            max-height: 70%;
+          }
+          .sticker-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+          }
+   
+        </style>
+      </head>
 
     <body>
 
@@ -61,35 +87,11 @@
      
     
         </style>
-      </head>
+      
       <body>
         <!-- Sezione Chi Siamo -->
-       <style>
-
-    .sticker {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background-color: #fff;
-      border: 2px solid #dee2e6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-    .sticker img {
-      max-width: 70%;
-      max-height: 70%;
-    }
-    .sticker-text {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #007bff;
-    }
-   
-  </style>
-</head>
+        
+      
   <body>
 
     <!-- Sezione Chi Siamo -->
@@ -108,7 +110,7 @@
       </div>
       <!-- Sticker row -->
       <div class="row text-center my-4">
-        <div class="col-4">
+        <div class="col-3">
           <div class="sticker mb-2">
             <img 
               src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" 
@@ -117,7 +119,7 @@
           </div>
           <p>Python</p>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <div class="sticker mb-2">
             <img 
               src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
@@ -126,10 +128,25 @@
           </div>
           <p>GitHub</p>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <div class="sticker mb-2">
-            <!-- Sticker realizzato in testo per MQL5 -->
-            <span class="sticker-text">MQL5</span>
+            <img 
+              src="https://www.mattepuffo.com/IMMAGINI_ARTICOLI/html-css.png" 
+              alt="HTML, CSS"
+              size=12px
+            />
+            
+            
+          </div>
+          <p>HTML, CSS</p>
+        </div>
+        <div class="col-3">
+          <div class="sticker mb-2">
+              <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b1/MQL5_Community_Logo.png" 
+              alt="MQL5"
+              />
+              
           </div>
           <p>MQL5</p>
         </div>
@@ -163,10 +180,8 @@
     <script>
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
     </script>
-  </body>
-
-  <!-- Footer -->
-  <footer class="text-center fixed-bottom  bg-dark py-2">
+     <!-- Footer -->
+  <footer class="text-center bg-dark py-2">
     <div class="container text-light">
       <p>&copy; 2025 Valutazioni Finanziarie. Tutti i diritti riservati.</p>
       <p>
@@ -176,6 +191,9 @@
       </p>
     </div>
   </footer>
+  </body>
+
+ 
 
   
 </html>
