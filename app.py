@@ -21,21 +21,12 @@ def chisiamo_page():
 
 @app.route("/index2", methods=['GET', 'POST'])
 def index2():
+    result=None
     if request.method == 'POST':
-        # Estrae i dati in POST
-        ticker = request.form.get('ticker', '').lower()
-        # Puoi aggiungere qui ulteriori elaborazioni, ad esempio scaricare dati, generare grafici, ecc.
-        # Creazione della risposta HTML con Bootstrap 5
-        html_fragment = f"""
-        <div class="alert alert-success text-center">
-          <h2>{ticker}!</h2>
-        </div>
-        """
-        # Puoi anche includere una risposta JSON se necessario, ad esempio:
-        # return jsonify({'ticker': ticker, 'message': f'Analisi per {ticker}'})
-        return html_fragment
-    else:
+        result=int(request.form.get("ticker","0"))
+        print(result)
         # Se il metodo è GET, restituisce la pagina HTML index2.html
-        return render_template("index2.html")
+    return render_template("index2.html", result=result)
+
 if __name__ == '__main__':
     app.run(debug=True)

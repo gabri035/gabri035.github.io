@@ -78,11 +78,11 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h2 class="card-title mb-4">Inserisci Dati</h2>
-          <form id="dataForm">
+          <form id="dataForm"  method="POST" action="/index2">
             <!-- Campo per ticker/ISIN -->
             <div class="mb-3">
               <label for="ticker" class="form-label">Ticker / ISIN</label>
-              <input type="text" class="form-control" id="ticker" placeholder="Inserisci il ticker o ISIN" required>
+              <input type="number" class="form-control" name="ticker" id="ticker" placeholder="Inserisci il ticker o ISIN" required>
             </div>
             <!-- Campo per timeframe -->
             <div class="mb-3">
@@ -107,7 +107,9 @@
             <button type="submit" class="btn btn-primary">Invia</button>
           </form>
         </div>
-        <div id="results" class="mt-4"></div>
+        <div id="result" class="mt-4">
+          <h2> Risultato: {{result}}</h2>
+        </div>
       </div>
     </section>
 
@@ -119,36 +121,12 @@
       });
     </script>
 
-    <script>
-      document.getElementById('dataForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
+    
   
-      const formData = new FormData(this) 
-  
-  
-      // Chiamata al backend (assumendo endpoint /calculate)
-      try {
-        const response = await fetch('/index2', {
-          method: 'POST',
-          body: formData
-        });
-  
-        if (!response.ok) {
-          throw new Error('Errore nel calcolo');
-        }
-        
-        // Se il backend restituisce una pagina HTML completa:
-        const resultHTML = await response.text();
-        document.getElementById('results').innerHTML = resultHTML;
-      } catch (error) {
-        document.getElementById('results').innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
-      }
-      });
-    </script>
 
 
 
-     <!-- Footer -->
+   <!-- Footer -->
     <footer class="text-center bg-dark py-2">
       <div class="container text-light">
         <p>&copy; 2025 Valutazioni Finanziarie. Tutti i diritti riservati.</p>
