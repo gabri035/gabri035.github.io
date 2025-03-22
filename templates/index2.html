@@ -82,12 +82,12 @@
             <!-- Campo per ticker/ISIN -->
             <div class="mb-3">
               <label for="ticker" class="form-label">Ticker / ISIN</label>
-              <input type="number" class="form-control" name="ticker" id="ticker" placeholder="Inserisci il ticker o ISIN" required>
+              <input type="text" class="form-control" name="ticker" id="ticker" placeholder="Inserisci il ticker o ISIN" required>
             </div>
             <!-- Campo per timeframe -->
             <div class="mb-3">
               <label for="timeframe" class="form-label">Timeframe</label>
-              <select class="form-select" id="timeframe" required>
+              <select class="form-select" id="timeframe" name="timeframe"required>
                 <option value="15min">15 minuti</option>
                 <option value="1h">1 ora</option>
                 <option value="4h">4 ore</option>
@@ -96,19 +96,24 @@
             </div>
             <!-- Campo benchmark attivabile -->
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="benchmarkFlag">
+              <input type="checkbox" class="form-check-input" id="benchmarkFlag" name="benchmarkFlag"
               <label class="form-check-label" for="benchmarkFlag">Attiva Benchmark</label>
             </div>
             <!-- Campo benchmark: ticker/isin, visualizzato solo se il flag è attivo -->
             <div class="mb-3" id="benchmarkField" style="display: none;">
               <label for="benchmarkTicker" class="form-label">Benchmark Ticker / ISIN</label>
-              <input type="text" class="form-control" id="benchmarkTicker" placeholder="Inserisci il ticker o ISIN del benchmark">
+              <input type="text" class="form-control" id="benchmarkTicker" name="benchmarkTicker" placeholder="Inserisci il ticker o ISIN del benchmark">
             </div>
             <button type="submit" class="btn btn-primary">Invia</button>
           </form>
         </div>
         <div id="result" class="mt-4">
-          <h2> Risultato: {{result}}</h2>
+          {% if result %}
+            <h2>Risultato: {{ result }}</h2>
+          {% endif %}
+          {% if plot_image %}
+            <img src="data:image/png;base64,{{ plot_image }}" class="img-fluid" alt="Grafico">
+          {% endif %}
         </div>
       </div>
     </section>
