@@ -1,192 +1,101 @@
 <!doctype html>
 <html lang="it">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Callz Pricing</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
-        <link href="../css/style.css" rel="stylesheet"/>
-
-        
-
-    </head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Callz Pricing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+  </head>
 
     
 
-    <body>
-        <!-- Navbar -->
+  <body> 
+    
+    
+    <!-- Navbar -->
         
-        <nav class="navbar navbar-expand-lg  " style="background-color: #f5e8d0;" >
-            <div class="container-fluid">
-                <img 
-                alt="ciao"
-                src="../image/Logo_trasp.png" 
-                class="logo rounded centered"
-                style="width: 40px;"
-                />
-              <a class="navbar-brand" href="./index.html">Callz </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./index1.html">Chi siamo</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="./index2.html">Analisi della serie storica</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href=""./index3.html"" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Opzioni
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="./pricing.html">Pricing and Greeks</a></li>
-                      <li><a class="dropdown-item" href="./strategie.html">Strategies</a></li>
-                      <li><a class="dropdown-item" href="./cointegrazione.html">Cointegration</a></li>
-                      
-                    </ul>
-
-                  </li>
-                </ul>
-              </div>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div>
-        </nav>
-
-
-        
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        
-        
-
-
-
-
-
-
-        <div class="container p-2 my-2 border rounded shadow-lg">
-            <div class="row g-3">
-                <div class="col-12 col-md-12 col-lg-12">
-                    <div class="p-3 border rounded text-bg-light">
-                        
-   
-                        <h1 class="mb-4 display-3 text-center"><strong>Calcolo Rendimenti e Payoff Opzione</strong></h1>
-                        
-                        <!-- Sezione form -->
-                        <div class="card shadow-sm mb-4">
-                            <div class="card-body">
-                                <form id="optionForm">
-                                <div class="mb-3">
-                                    <label for="titolo" class="form-label">Titolo (ISIN o Ticker)</label>
-                                    <input type="text" class="form-control" id="titolo" name="titolo" placeholder="Es. IT0001234567 o TICKER" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="strike" class="form-label">Strike Price</label>
-                                    <input type="number" class="form-control" id="strike" name="strike" step="any" placeholder="Es. 100" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="scadenza" class="form-label">Scadenza (numero giorni)</label>
-                                    <input type="number" class="form-control" id="scadenza" name="scadenza" placeholder="Es. 30" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="opzione" class="form-label">Tipo di Opzione</label>
-                                    <select class="form-select" id="opzione" name="opzione" required>
-                                    <option value="" disabled selected>Seleziona il tipo di opzione</option>
-                                    <option value="call" >Call</option>
-                                    <option value="put">Put</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Calcola</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <script 
-             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-            </script>
-            <script>
-                    // Gestione della submission del form tramite fetch per inviare i dati al backend Python
-                    document.getElementById('optionForm').addEventListener('submit', async function(event) {
-                    event.preventDefault();
-            
-                // Estrai i dati del form
-                const formData = new FormData(this);
-                const data = {
-                    Y: formData.get('titolo'),
-                    K: parseFloat(formData.get('strike')),
-                    T: parseInt(formData.get('scadenza'), 10),
-                    opz: formData.get('opzione')
-                };
-
-                try {
-                    // Invia i dati in formato JSON al backend (endpoint /calculate)
-                    const response = await fetch('/calculate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                    });
-                    
-                    if (!response.ok) {
-                    throw new Error('Errore nella risposta dal server');
-                    }
-                    
-                    // Supponiamo che il backend restituisca un oggetto JSON con 'analisi' e 'payoff'
-                    const result = await response.json();
-                    
-                    // Visualizza i risultati sulla pagina
-                    document.getElementById('results').innerHTML = `
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                        <h2 class="card-title">Risultati</h2>
-                        <h4>Analisi dei Rendimenti</h4>
-                        <p>${result.analisi}</p>
-                        <h4>Payoff a Scadenza</h4>
-                        <p>${result.payoff}</p>
-                        </div>
-                    </div>
-                    `;
-                } catch (error) {
-                    document.getElementById('results').innerHTML = `
-                    <div class="alert alert-danger" role="alert">
-                        ${error.message}
-                    </div>
-                    `;
+    <nav class="navbar navbar-expand-lg  " style="background-color: #f5e8d0;" >
+      <div class="container-fluid">
+          <img 
+          alt="ciao"
+          src="../image/Logo_trasp.png" 
+          class="logo rounded centered"
+          style="width: 40px;"
+          />
+        <a class="navbar-brand" href="./index">Callz </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/index">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index1">Chi siamo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index2">Analisi della serie storica</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href=""./index3.html"" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Opzioni
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/pricing">Pricing and Greeks</a></li>
+                <li><a class="dropdown-item" href="/strategie">Strategies</a></li>
+                <li><a class="dropdown-item" href="/cointegrazione">Cointegration</a></li>
                 
-                }
-                });
-            </script>
-        </div>    
+              </ul>
 
-      
-    </body>
+            </li>
+          </ul>
+        </div>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
 
 
-  <!-- Footer -->
-  <footer class="text-center bg-dark py-2">
-    <div class="container text-light">
-      <p>&copy; 2025 Valutazioni Finanziarie. Tutti i diritti riservati.</p>
-      <p>
-        <a href="#" class="text-decoration-none text-reset">Contattaci</a> | 
-        <a href="#" class="text-decoration-none text-reset">Privacy Policy</a> | 
-        <a href="#" class="text-decoration-none text-reset">Termini di Utilizzo</a>
-      </p>
-    </div>
-  </footer>
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <section class="container my-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="fw-bold card-title mb-4">Pricing &amp; Greche <span role="img" aria-label="freccia a segno">🎯</span> </h2>
+          <p></p>
+          <p>Benvenuto nella sezione di analisi della serie storica. Inserisci il ticker o l'ISIN di un titolo azionario e seleziona il timeframe per visualizzare i grafici relativi alla serie storica.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    
+  
+
+
+
+   <!-- Footer -->
+    <footer class="text-center bg-dark py-2">
+      <div class="container text-light">
+        <p>&copy; 2025 Valutazioni Finanziarie. Tutti i diritti riservati.</p>
+        <p>
+          <a href="#" class="text-decoration-none text-reset">Contattaci</a> | 
+          <a href="#" class="text-decoration-none text-reset">Privacy Policy</a> | 
+          <a href="#" class="text-decoration-none text-reset">Termini di Utilizzo</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+
+
+  
 
   
 </html>

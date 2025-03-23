@@ -23,6 +23,14 @@ def callz():
 def chisiamo_page():
     return render_template("index1.html")
 
+@app.route("/pricing")
+def pricing():
+    return render_template("pricing.html")
+
+@app.route("/strategie")
+def strategie():
+    return render_template("strategie.html")
+
 
         
 @app.route("/index2", methods=['GET', 'POST'])
@@ -54,6 +62,7 @@ def index2():
         else:
             period = "6mo"
             interval = "1d"
+        
         data = yf.Ticker(ticker).history(period=period, interval=interval)
         
         if data.empty:
@@ -61,7 +70,7 @@ def index2():
         else:
             result = f"Grafici per {ticker} con timeframe {timeframe}"
             
-              ## Grafico a candele
+            ## Grafico a candele
             # Creiamo il grafico a candele in una figura separata (lasciamo che mpf.plot crei la figura)
             fig_candle, _ = mpf.plot(data, type='candle', style='charles', volume=True,
                                      show_nontrading=False, returnfig=True, figsize=(8, 4))
