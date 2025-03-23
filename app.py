@@ -1,11 +1,14 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 import yfinance as yf
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Backend non interattivo
 import matplotlib.pyplot as plt
 import mplfinance as mpf
 import io
 import base64
+from scipy.stats import norm, shapiro, jarque_bera, skew, kurtosis
 app = Flask(__name__)
 
 @app.route("/")
@@ -25,7 +28,11 @@ def chisiamo_page():
 @app.route("/index2", methods=['GET', 'POST'])
 def index2():
     result = None
-    plot_image = None
+    candle_image = None
+    dist_image = None
+    dist_caption = None
+    
+    
     if request.method == 'POST':
         # Estrai i dati dal form
         ticker = request.form.get("ticker", "").upper()  # per convenzione, ticker in maiuscolo
@@ -47,25 +54,66 @@ def index2():
         else:
             period = "6mo"
             interval = "1d"
-        
-        # Scarica i dati
         data = yf.Ticker(ticker).history(period=period, interval=interval)
         
         if data.empty:
             result = f"Nessun dato trovato per il ticker {ticker}"
         else:
-            result = f"Plot per {ticker} con timeframe {timeframe}"
-            # Crea il grafico candlestick con mplfinance utilizzando returnfig=True
-            fig, axlist = mpf.plot(data, type='candle', style='charles', volume=False, show_nontrading=True, returnfig=True)
+            result = f"Grafici per {ticker} con timeframe {timeframe}"
             
-            # Salva il grafico in un buffer e codificalo in base64
-            buf = io.BytesIO()
-            fig.savefig(buf, format="png", bbox_inches='tight')
-            buf.seek(0)
-            plot_image = base64.b64encode(buf.getvalue()).decode('utf-8')
-            plt.close(fig)
+              ## Grafico a candele
+            # Creiamo il grafico a candele in una figura separata (lasciamo che mpf.plot crei la figura)
+            fig_candle, _ = mpf.plot(data, type='candle', style='charles', volume=True,
+                                     show_nontrading=False, returnfig=True, figsize=(8, 4))
+            buf_temp = io.BytesIO()
+            fig_candle.savefig(buf_temp, format="png", bbox_inches='tight')
+            buf_temp.seek(0)
+            candle_image = base64.b64encode(buf_temp.getvalue()).decode('utf-8')
+            plt.close(fig_candle)
             
-    return render_template("index2.html", result=result, plot_image=plot_image)
+            ## Grafico della distribuzione dei rendimenti
+            # Calcola i log-rendimenti
+            returns = np.log(data['Close'] / data['Close'].shift(1)).dropna()
+            # Calcola i parametri della distribuzione
+            mu = returns.mean()
+            sigma = returns.std()
+            skewness = skew(returns)
+            kurt = kurtosis(returns)
+            shapiro_stat, shapiro_p = shapiro(returns)
+            jb_stat, jb_p = jarque_bera(returns)
+            
+            # Prepara il range per la curva normale
+            x = np.linspace(returns.min(), returns.max(), 100)
+            pdf = norm.pdf(x, loc=mu, scale=sigma)
+            
+            # Crea il grafico: istogramma + curva normale
+            fig_dist, ax = plt.subplots(figsize=(8, 4))
+            n, bins, patches = ax.hist(returns, bins=30, density=True, alpha=0.6,
+                                         color='skyblue', edgecolor='black', label='Empirica')
+            ax.plot(x, pdf, 'r--', linewidth=2, label='Normale')
+            ax.set_title("Distribuzione dei Rendimenti")
+            ax.set_xlabel("Rendimento")
+            ax.set_ylabel("Densità")
+            ax.legend()
+            
+            buf2 = io.BytesIO()
+            fig_dist.savefig(buf2, format="png", bbox_inches='tight')
+            buf2.seek(0)
+            dist_image = base64.b64encode(buf2.getvalue()).decode('utf-8')
+            plt.close(fig_dist)
+            
+            # Prepara la didascalia per il grafico della distribuzione
+            dist_caption = (
+                f"Media: {mu:.4f}<br>"
+                f"Deviazione Standard: {sigma:.4f}<br>"
+                f"Skewness: {skewness:.4f}<br>"
+                f"Curtosi: {kurt:.4f}<br>"
+                f"Test di Shapiro-Wilk: stat={shapiro_stat:.4f}, p={shapiro_p:.4f}<br>"
+                f"Test di Jarque-Bera: stat={jb_stat:.4f}, p={jb_p:.4f}"
+            )
+            
+    return render_template("index2.html", result=result, candle_image=candle_image,
+                           dist_image=dist_image, dist_caption=dist_caption)
 
 
 if __name__ == '__main__':

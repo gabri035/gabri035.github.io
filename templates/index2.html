@@ -107,18 +107,48 @@
             <button type="submit" class="btn btn-primary">Invia</button>
           </form>
         </div>
-        <div id="result" class="mt-4">
-          {% if result %}
-            <h2>Risultato: {{ result }}</h2>
-          {% endif %}
-          {% if plot_image %}
-            <img src="data:image/png;base64,{{ plot_image }}" class="img-fluid" alt="Grafico">
-          {% endif %}
-        </div>
       </div>
     </section>
 
+      <!-- Sezione per visualizzare i grafici -->
+    {% if result %}
+    <section class="container my-5">
+      <div class="card shadow-sm">
+        <div class="row">
+          <div class="col-md-6">
+            {% if candle_image %}
+              <img src="data:image/png;base64,{{ candle_image }}" class="img-fluid" alt="Grafico a candele">
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <h4>Didascalia Candlestick</h4>
+            <p>Grafico a candele per {{ result }}.</p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card shadow-sm">
+        <!-- Secondo blocco: Grafico distribuzione e didascalia con metriche -->
+        <div class="row">
+          <div class="col-md-6">
+            {% if dist_image %}
+              <img src="data:image/png;base64,{{ dist_image }}" class="img-fluid" alt="Distribuzione dei rendimenti">
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <h4>Didascalia Distribuzione</h4>
+            {% if dist_caption %}
+              <p>{{ dist_caption|safe }}</p>
+            {% endif %}
+          </div>
+        </div> 
+      </div>
+    </section>
+    {% endif %}
+    
     <script>
+
+
       // Mostra o nasconde il campo benchmark in base allo stato della checkbox
       document.getElementById('benchmarkFlag').addEventListener('change', function() {
         const benchmarkField = document.getElementById('benchmarkField');
