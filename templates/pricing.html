@@ -19,7 +19,7 @@
       <div class="container-fluid">
           <img 
           alt="ciao"
-          src="../image/Logo_trasp.png" 
+          src="/static/logo_trasp.png" 
           class="logo rounded centered"
           style="width: 40px;"
           />
@@ -57,14 +57,14 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
-    </nav>
+  </nav>
 
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <section class="container my-5">
-      <div class="card shadow-sm">
+      <div class="card shadow-sm bg-light">
         <div class="card-body">
           <h2 class="fw-bold card-title mb-4">Pricing &amp; Greche <span role="img" aria-label="freccia a segno">🎯</span> </h2>
           <p></p>
@@ -74,8 +74,77 @@
     </section>
 
 
+    <div class="container my-5">
+      <!-- Card del form -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title mb-4">Calcola Payoff e Valore At Now</h2>
+          <form id="optionForm" method="POST" action="/option_calculator">
+            <!-- Nome sottostante -->
+            <div class="mb-3">
+              <label for="underlying" class="form-label">Nome sottostante (ISIN/Ticker)</label>
+              <input type="text" class="form-control" id="underlying" name="underlying" placeholder="Inserisci ISIN o Ticker" required>
+            </div>
+            <!-- Strike price -->
+            <div class="mb-3">
+              <label for="strike" class="form-label">Strike Price</label>
+              <input type="number" step="any" class="form-control" id="strike" name="strike" placeholder="Inserisci lo strike" required>
+            </div>
+            <!-- Giorni a scadenza -->
+            <div class="mb-3">
+              <label for="days" class="form-label">Giorni a scadenza</label>
+              <input type="number" class="form-control" id="days" name="days" placeholder="Inserisci il numero di giorni" required>
+            </div>
+            <!-- Volatilità implicita -->
+            <div class="mb-3">
+              <label for="vol" class="form-label">Volatilità Implicita</label>
+              <input type="number" step="any" class="form-control" id="vol" name="vol" placeholder="Inserisci la volatilità implicita" required>
+            </div>
+            <!-- Selezione Call/Put -->
+            <div class="mb-3">
+              <label class="form-label">Tipo di Opzione</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="optionType" id="callOption" value="call" required>
+                <label class="form-check-label" for="callOption">Call</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="optionType" id="putOption" value="put" required>
+                <label class="form-check-label" for="putOption">Put</label>
+              </div>
+            </div>
+            <!-- Selezione Compra/Vendi -->
+            <div class="mb-3">
+              <label class="form-label">Operazione</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tradeType" id="buy" value="buy" required>
+                <label class="form-check-label" for="buy">Compra</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tradeType" id="sell" value="sell" required>
+                <label class="form-check-label" for="sell">Vendi</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcola</button>
+          </form>
+        </div>
+      </div>
 
 
+      {% if payoff_image and atnow_image %}
+      <div class="card mt-5 shadow-sm">
+        <div class="card-body">
+          <h4 class="mb-4">Payoff a Scadenza</h4>
+          <img src="data:image/png;base64,{{ payoff_image }}" alt="Payoff a scadenza" class="img-fluid">
+        </div>
+      </div>
+      <div class="card mt-5 shadow-sm">
+        <div class="card-body">
+          <h4 class="mb-4">Valore At Now</h4>
+          <img src="data:image/png;base64,{{ atnow_image }}" alt="Valore At Now" class="img-fluid">
+        </div>
+      </div>
+      {% endif %}
+    </div>
     
   
 

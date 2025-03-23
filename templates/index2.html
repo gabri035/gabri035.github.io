@@ -19,7 +19,7 @@
       <div class="container-fluid">
           <img 
           alt="ciao"
-          src="../image/Logo_trasp.png" 
+          src="/static/logo_trasp.png" 
           class="logo rounded centered"
           style="width: 40px;"
           />
@@ -57,14 +57,13 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
-    </nav>
-
+  </nav>
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <section class="container my-5">
-      <div class="card shadow-sm">
+      <div class="card shadow-sm bg-light">
         <div class="card-body">
           <h2 class="fw-bold card-title mb-4">Analisi della Serie Storica<span role="img" aria-label="mercati in crescita">📈</span></h2>
           <p></p>
@@ -114,12 +113,14 @@
       <!-- Sezione per visualizzare i grafici -->
     {% if result %}
     <section class="container my-5">
-      <div class="card shadow-sm">
-        <div class="row">
+      <div class="card shadow-sm bg-light">
+        <div class="row" >
           <div class="col-md-6">
-            {% if candle_image %}
-              <img src="data:image/png;base64,{{ candle_image }}" class="img-fluid" alt="Grafico a candele">
-            {% endif %}
+            <div class="card">
+              {% if candle_image %}
+                <img src="data:image/png;base64,{{ candle_image }}" class="img-fluid" alt="Grafico a candele">
+              {% endif %}
+            </div>
           </div>
           <div class="col-md-6">
             <h4>Didascalia Candlestick</h4>
@@ -128,13 +129,34 @@
         </div>
       </div>
       <br>
-      <div class="card shadow-sm">
+      <div class="card shadow-sm bg-light">
         <!-- Secondo blocco: Grafico distribuzione e didascalia con metriche -->
         <div class="row">
           <div class="col-md-6">
-            {% if dist_image %}
-              <img src="data:image/png;base64,{{ dist_image }}" class="img-fluid" alt="Distribuzione dei rendimenti">
+            <div class="card">
+              {% if dist_image %}
+                <img src="data:image/png;base64,{{ dist_image }}" class="img-fluid" alt="Distribuzione dei rendimenti">
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4>Didascalia Distribuzione</h4>
+            {% if dist_caption %}
+              <p>{{ dist_caption|safe }}</p>
             {% endif %}
+          </div>
+        </div> 
+      </div>
+      <br>
+      <div class="card shadow-sm bg-light">
+        <!-- Secondo blocco: Grafico distribuzione e didascalia con metriche -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              {% if dist_image %}
+                <img src="data:image/png;base64,{{ dist_image }}" class="img-fluid" alt="Distribuzione dei rendimenti">
+              {% endif %}
+            </div>
           </div>
           <div class="col-md-6">
             <h4>Didascalia Distribuzione</h4>

@@ -125,5 +125,107 @@ def index2():
                            dist_image=dist_image, dist_caption=dist_caption)
 
 
+
+
+
+def generate_payoff_chart(strike, optionType, tradeType):
+    """
+    Genera un grafico del payoff a scadenza.
+    Per una call: payoff = max(S - strike, 0)
+    Per una put: payoff = max(strike - S, 0)
+    Se l'operazione è 'sell', il payoff viene invertito.
+    """
+    # Definiamo una gamma di prezzi del sottostante
+    prices = np.linspace(strike * 0.5, strike * 1.5, 100)
+    if optionType.lower() == 'call':
+        payoff = np.maximum(prices - strike, 0)
+    else:
+        payoff = np.maximum(strike - prices, 0)
+    
+    # Se l'operazione è vendita, inverto il payoff
+    if tradeType.lower() == 'sell':
+        payoff = -payoff
+
+    # Creazione del grafico
+    fig, ax = plt.subplots()
+    ax.plot(prices, payoff, label=f"{optionType.capitalize()} Payoff")
+    ax.axhline(0, color='black', lw=0.5)
+    ax.set_title('Payoff a Scadenza')
+    ax.set_xlabel('Prezzo Sottostante')
+    ax.set_ylabel('Payoff')
+    ax.legend()
+
+    # Converto il grafico in immagine Base64
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+    img_payoff = base64.b64encode(buf.read()).decode('utf-8')
+    plt.close(fig)
+    return img_payoff
+
+def generate_atnow_chart(underlying, strike, days, vol, optionType, tradeType):
+    """
+    Genera un grafico dummy per il "Valore At Now" (valutazione attuale dell'opzione).
+    Qui viene usata una funzione esponenziale decrescente per simulare la decadenza del valore,
+    moltiplicata per il payoff intrinseco.
+    """
+    # Calcolo del tempo in anni (dummy)
+    t = np.linspace(0, days / 365, 100)
+    # Calcolo del payoff intrinseco al tempo zero
+    if optionType.lower() == 'call':
+        intrinsic = max(underlying - strike, 0)
+    else:
+        intrinsic = max(strike - underlying, 0)
+    # Funzione dummy per il prezzo: decrescita esponenziale
+    price = np.exp(-t) * intrinsic
+    if tradeType.lower() == 'sell':
+        price = -price
+
+    fig, ax = plt.subplots()
+    ax.plot(t * 365, price, label='Valore At Now')
+    ax.set_title('Valore At Now (dummy)')
+    ax.set_xlabel('Giorni')
+    ax.set_ylabel('Prezzo Opzione')
+    ax.legend()
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+    img_atnow = base64.b64encode(buf.read()).decode('utf-8')
+    plt.close(fig)
+    return img_atnow
+
+@app.route('/option_calculator', methods=['GET', 'POST'])
+def option_calculator():
+    if request.method == 'POST':
+        # Recupero dei dati dal form
+        underlying_input = request.form.get('underlying')
+        try:
+            # Proviamo a convertire il sottostante in valore numerico (dummy)
+            underlying_val = float(underlying_input)
+        except (ValueError, TypeError):
+            # Se non è possibile, usiamo un valore default
+            underlying_val = 100.0
+
+        strike = float(request.form.get('strike'))
+        days = int(request.form.get('days'))
+        vol = float(request.form.get('vol'))
+        optionType = request.form.get('optionType')
+        tradeType = request.form.get('tradeType')
+
+        # Generazione dei grafici
+        payoff_image = generate_payoff_chart(strike, optionType, tradeType)
+        atnow_image = generate_atnow_chart(underlying_val, strike, days, vol, optionType, tradeType)
+
+        # Renderizza il template passando le immagini generate
+        return render_template(
+            '/pricing.html',
+            payoff_image=payoff_image,
+            atnow_image=atnow_image
+        )
+    # Per GET visualizziamo semplicemente il form
+    return render_template('/pricing.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True) 
